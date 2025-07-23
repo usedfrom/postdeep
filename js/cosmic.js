@@ -180,7 +180,8 @@ document.addEventListener('DOMContentLoaded', function() {
                         ...chatHistory
                     ],
                     max_tokens: 200,
-                    temperature: 0.8
+                    temperature: 0.8,
+                    stream: false
                 })
             });
 
