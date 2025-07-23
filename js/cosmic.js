@@ -167,11 +167,11 @@ document.addEventListener('DOMContentLoaded', function() {
         userInput.value = '';
 
         try {
-            const response = await fetch(`${baseUrl}/api/openai`, {
+            const response = await fetch(`${baseUrl}/api/openrouter`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    model: 'deepseek-chat',
+                    model: 'mistralai/mixtral-8x7b-instruct',
                     messages: [
                         {
                             role: 'system',
@@ -180,8 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         ...chatHistory
                     ],
                     max_tokens: 200,
-                    temperature: 0.8,
-                    stream: false
+                    temperature: 0.8
                 })
             });
 
