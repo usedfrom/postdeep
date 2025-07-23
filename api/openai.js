@@ -14,20 +14,23 @@ app.use(cors({
 
 app.use(express.json());
 
-const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
-const proxyUrl = process.env.PROXY_URL;
-
-if (!DEEPSEEK_API_KEY || !proxyUrl) {
-    console.error('Ошибка: DEEPSEEK_API_KEY или PROXY_URL не заданы в переменных окружения');
-    throw new Error('Необходимы переменные окружения DEEPSEEK_API_KEY и PROXY_URL');
-}
-
-const agent = new HttpsProxyAgent(proxyUrl);
-
 // Экспорт функции для Vercel
 module.exports = async (req, res) => {
     console.log('Получен запрос на /api/openai:', req.body);
+
+    const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
+    const proxyUrl = process.env.PROXY_URL;
+
+    if (!DEEPSEEK_API_KEY || !proxyUrl) {
+        console.error('Ошибка: DEEPSEEK_API_KEY или PROXY_URL не заданы в переменных окружения');
+        return res.status(500).json({
+            error: 'Server Configuration Error',
+            details: 'DEEPSEEK_API_KEY or PROXY_URL environment variables are not set'
+        });
+    }
+
     try {
+        const agent = new HttpsProxyAgent(proxyUrl);
         const response = await axios.post('https://api.deepseek.com/chat/completions', req.body, {
             headers: {
                 'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
