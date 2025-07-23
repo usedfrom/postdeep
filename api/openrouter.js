@@ -7,7 +7,7 @@ const app = express();
 
 // Настройка CORS
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://webinnovator.vercel.app' : 'http://127.0.0.1:5500',
+    origin: process.env.NODE_ENV === 'production' ? 'https://postdeep.vercel.app' : 'http://127.0.0.1:5500',
     methods: ['GET', 'POST', 'OPTIONS'],
     allowedHeaders: ['Content-Type']
 }));
@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
             headers: {
                 'Authorization': `Bearer ${OPENROUTER_API_KEY}`,
                 'Content-Type': 'application/json',
-                'HTTP-Referer': process.env.NODE_ENV === 'production' ? 'https://webinnovator.vercel.app' : 'http://127.0.0.1:5500',
+                'HTTP-Referer': process.env.NODE_ENV === 'production' ? 'https://postdeep.vercel.app' : 'http://127.0.0.1:5500',
                 'X-Title': 'Cosmic AI Agent'
             },
             httpsAgent: agent
