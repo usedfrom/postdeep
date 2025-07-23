@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "api/openai.js",
+      "src": "api/openrouter.js",
       "use": "@vercel/node"
     },
     {
@@ -20,8 +20,9 @@
   ],
   "routes": [
     {
-      "src": "/api/openai",
-      "dest": "/api/openai.js"
+      "src": "/api/openrouter",
+      "dest": "/api/openrouter.js",
+      "methods": ["POST"]
     },
     {
       "src": "/(.*)",
