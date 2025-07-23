@@ -14,12 +14,12 @@ app.use(cors({
 
 app.use(express.json());
 
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY;
 const proxyUrl = process.env.PROXY_URL;
 
-if (!OPENAI_API_KEY || !proxyUrl) {
-    console.error('Ошибка: OPENAI_API_KEY или PROXY_URL не заданы в переменных окружения');
-    throw new Error('Необходимы переменные окружения OPENAI_API_KEY и PROXY_URL');
+if (!DEEPSEEK_API_KEY || !proxyUrl) {
+    console.error('Ошибка: DEEPSEEK_API_KEY или PROXY_URL не заданы в переменных окружения');
+    throw new Error('Необходимы переменные окружения DEEPSEEK_API_KEY и PROXY_URL');
 }
 
 const agent = new HttpsProxyAgent(proxyUrl);
@@ -28,14 +28,14 @@ const agent = new HttpsProxyAgent(proxyUrl);
 module.exports = async (req, res) => {
     console.log('Получен запрос на /api/openai:', req.body);
     try {
-        const response = await axios.post('https://api.openai.com/v1/chat/completions', req.body, {
+        const response = await axios.post('https://api.deepseek.com/chat/completions', req.body, {
             headers: {
-                'Authorization': `Bearer ${OPENAI_API_KEY}`,
+                'Authorization': `Bearer ${DEEPSEEK_API_KEY}`,
                 'Content-Type': 'application/json'
             },
             httpsAgent: agent
         });
-        console.log('Успешный ответ от OpenAI:', response.data);
+        console.log('Успешный ответ от DeepSeek:', response.data);
         res.status(200).json(response.data);
     } catch (error) {
         console.error('Ошибка API:', error.message, error.response ? error.response.data : '');
